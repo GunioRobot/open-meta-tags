@@ -25,14 +25,16 @@ In order to turn web pages into Open Graph objects, you'll need the following in
 - Add the Facebook Like button to your web pages
 - Modify your sitewide html tag with the following:
 
-    <html xmlns:og="http://opengraphprotocol.org/schema/"
-          xmlns:fb="http://www.facebook.com/2008/fbml">
+<html xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:fb="http://www.facebook.com/2008/fbml">
 
 Feature List
 ------------
 
-**1. The tags allow you to specify structured information about your web pages. The more information you provide, the more opportunities your web pages can be surfaced within Facebook today and in the future. Here's an example for a music page:
+**1. Turn any web page into meta objects in the Open Graph
 
+These Open Graph tags allow you to specify structured information about your web pages. The more information you provide, the more opportunities your web pages can be surfaced within Facebook today and in the future. Here's an example for a music page:
+     
     <html xmlns:og="http://opengraphprotocol.org/schema/"
           xmlns:fb="http://www.facebook.com/2008/fbml">
       <head>
@@ -55,25 +57,25 @@ Feature List
   
 **2. Define Open Meta tags in your controller using instance variables:
 
-  @page_title        = 'Day & Age'
-  @page_type         = 'music'
-  @page_site_name    = 'Amazon'
-  @page_image        = 'http://ecx.images-amazon.com/images/I/61CK4wp-HTL._SL500_AA300_.jpg'
-  @page_admins       = 'USER_ID'
-  @page_app_id_      = 'APP_ID'
-  @page_description  = 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+    @page_title        = 'Day & Age'
+    @page_type         = 'music'
+    @page_site_name    = 'Amazon'
+    @page_image        = 'http://ecx.images-amazon.com/images/I/61CK4wp-HTL._SL500_AA300_.jpg'
+    @page_admins       = 'USER_ID'
+    @page_app_id_      = 'APP_ID'
+    @page_description  = 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
   
 **3. Use Open Meta tags in your views using the following methods:
 
- - content_for :head do
-   = title 'Day & Age'
-   = type 'music'
-   = description 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+   - content_for :head do
+     = title 'Day & Age'
+     = type 'music'
+     = description 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
  
 **4. Use Open Meta tags in your view using the post_open_meta method:
 
-  - content_for :head do
-    = single_open_meta :title => 'Day & Age', :type => 'music', :description => 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+    - content_for :head do
+      = single_open_meta :title => 'Day & Age', :type => 'music', :description => 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
     
 Options
 -------
