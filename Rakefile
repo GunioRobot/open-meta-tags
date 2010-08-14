@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rake'
 
 begin
@@ -10,44 +9,39 @@ begin
     gem.email = "jonathan@intridea.com"
     gem.homepage = "http://github.com/jonathannelson/open-meta"
     gem.authors = ["Intridea"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+begin
+  require 'spec/rake/spectask'
+
+  desc 'Default: run specs'
+  task :default => :spec
+
+  desc 'Test the sphinx plugin'
+  Spec::Rake::SpecTask.new do |t|
+    t.libs << 'lib'
+    t.pattern = 'spec/*_spec.rb'
+    t.verbose = true
+    t.spec_opts = ['-cfs']
+  end
+rescue LoadError
+  puts 'RSpec not available. Install it with: sudo gem install rspec'
 end
 
 begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/test_*.rb'
-    test.verbose = true
+  require 'yard'
+  YARD::Rake::YardocTask.new(:yard) do |t|
+    t.options = ['--title', 'MetaTags Documentation']
+    if ENV['PRIVATE']
+      t.options.concat ['--protected', '--private']
+    else
+      t.options.concat ['--protected', '--no-private']
+    end
   end
 rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
-end
-
-task :test => :check_dependencies
-
-task :default => :test
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "open-meta #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  puts 'Yard not available. Install it with: sudo gem install yard'
 end
