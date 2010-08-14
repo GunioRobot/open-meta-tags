@@ -2,38 +2,38 @@ module OpenMeta
   # Methods to use in views and helpers.
   module ViewHelper
 
-    def set_open_meta(open_meta = {})
+    def single_open_meta(open_meta = {})
       @open_meta ||= {}
       @open_meta.merge!(open_meta || {})
     end
     
-    def title(title, headline = '')
-      set_open_meta(:title => title)
-      headline.blank? ? title : headline
-    end
-    
     def description(description)
-      set_open_meta(:description => description)
+      single_open_meta(:description => description)
       description
     end
     
+    def admins(admins)
+      single_open_meta(:admins => admins)
+      admins
+    end
+    
     def app_id(app_id)
-      set_open_meta(:app_id => app_id)
+      single_open_meta(:app_id => app_id)
       app_id
     end
     
     def street_address(street_address)
-      set_open_meta(:street_address => street_address)
+      single_open_meta(:street_address => street_address)
       street_address
     end
     
     def postal_code(postal_code)
-      set_open_meta(:postal_code => postal_code)
+      single_open_meta(:postal_code => postal_code)
       postal_code
     end
     
     def country_name(country_name)
-      set_open_meta(:country_name => country_name)
+      single_open_meta(:country_name => country_name)
       country_name
     end
     
@@ -41,55 +41,28 @@ module OpenMeta
     def self.meta_methods(*attribute_names)
       attribute_names.each do |attribute_name|
         define_method(attribute_name) do |value|
-          set_open_meta(attribute_name => value)
+          single_open_meta(attribute_name => value)
           value
         end
       end
     end
 
-    meta_methods :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number
+    meta_methods :title, :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number
 
     #####  set default metadata values and display metadata
 
-    def display_open_meta(default = {})
+    def group_open_meta(default = {})
       open_meta = (default || {}).merge(@open_meta || {})
-
-      # prefix (leading space)
-      prefix = open_meta[:prefix] === false ? '' : (open_meta[:prefix] || ' ')
-
-      # separator
-      separator = open_meta[:separator].blank? ? '|' : open_meta[:separator]
-
-      # suffix (trailing space)
-      suffix = open_meta[:suffix] === false ? '' : (open_meta[:suffix] || ' ')
-
-      # title
-      title = open_meta[:meta]
-      if open_meta[:lowercase] === true and !title.blank?
-        title = if title.is_a?(Array)
-          title.map { |t| t.downcase }
-        else
-          title.downcase
-        end
-      end
 
       result = []
 
-      ##### basic metadata information
-
-      # title
-      if title.blank?
-        result << tag(:meta, :property => 'og:title', :content => open_meta[:site])
-      else
-        title = normalize_title(title)
-        title = [open_meta[:site]] + title
-        title.reverse! if open_meta[:reverse] === true
-        sep = prefix + separator + suffix
-        result << tag(:meta, :property => 'og:title', :content => title.join(sep))
-      end
+      ##### metadata options
       
       description = normalize_description(open_meta[:description])
       result << tag(:meta, :property => 'og:description', :content => description) unless description.blank?
+      
+      admins = normalize_admins(open_meta[:admins])
+      result << tag(:meta, :property => 'fb:admins', :content => admins) unless admins.blank?
       
       app_id = open_meta[:app_id]
       result << tag(:meta, :property => 'fb:app_id', :content => app_id) unless app_id.blank?
@@ -114,16 +87,15 @@ module OpenMeta
 
     private
 
-      def normalize_title(title)
-        if title.is_a? String
-          title = [title]
-        end
-        title.map { |t| h(strip_tags(t)) }
-      end
-
       def normalize_description(description)
         return '' unless description
         truncate(strip_tags(description).gsub(/\s+/, ' '), :length => 150)
+      end
+      
+      def normalize_admins(admins)
+        return '' unless admins
+        admins = admins.flatten.join(', ') if admins.is_a?(Array)
+        strip_tags(admins).mb_chars.downcase
       end
   end
 end

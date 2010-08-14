@@ -17,6 +17,7 @@ module OpenMeta
         open_meta[:image]            = @page_image            if @page_image
         open_meta[:description]      = @page_description      if @page_description
         open_meta[:site_name]        = @page_site_name        if @page_site_name
+        open_meta[:admins]           = @page_admins           if @page_admins
         open_meta[:app_id]           = @page_app_id           if @page_app_id
         # Specify location information
         open_meta[:latitude]         = @page_latitude         if @page_latitude 
@@ -30,18 +31,18 @@ module OpenMeta
         open_meta[:email]            = @page_email            if @page_email
         open_meta[:phone_number]     = @phone_number          if @phone_number
         open_meta[:fax_number]       = @fax_number            if @fax_number
-        set_open_meta(open_meta)
+        single_open_meta(open_meta)
 
         render_without_open_meta(*args, &block)
       end
 
       ##### set open graph metadata for the page.
-      def set_open_meta(open_meta)
+      def single_open_meta(open_meta)
         @open_meta ||= {}
         @open_meta.merge!(open_meta || {})
       end
 
-      protected :set_open_meta
+      protected :single_open_meta
     end
   end
 end

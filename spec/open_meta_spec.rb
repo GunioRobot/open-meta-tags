@@ -34,6 +34,10 @@ describe OpenMeta::ViewHelper do
       @view.should respond_to(:site_name)
     end
     
+    it 'should respond to "admins" helper' do
+      @view.should respond_to(:admins)
+    end
+    
     it 'should respond to "app_id" helper' do
       @view.should respond_to(:app_id)
     end
@@ -78,22 +82,18 @@ describe OpenMeta::ViewHelper do
       @view.should respond_to(:fax_number)
     end
     
-    it 'should respond to "set_open_meta" helper' do
-      @view.should respond_to(:set_open_meta)
+    it 'should respond to "single_open_meta" helper' do
+      @view.should respond_to(:single_open_meta)
     end
 
-    it 'should respond to "display_open_meta" helper' do
-      @view.should respond_to(:display_open_meta)
+    it 'should respond to "group_open_meta" helper' do
+      @view.should respond_to(:group_open_meta)
     end
   end
   
   context 'returning values' do
     it 'should return title' do
       @view.title('some-title').should == 'some-title'
-    end
-
-    it 'should return headline if specified' do
-      @view.title('some-title', 'some-headline').should == 'some-headline'
     end
     
     it 'should return type' do
@@ -114,6 +114,10 @@ describe OpenMeta::ViewHelper do
     
     it 'should return site_name' do
       @view.site_name('some-site_name').should == 'some-site_name'
+    end
+    
+    it 'should return admins' do
+      @view.admins('some-admins').should == 'some-admins'
     end
     
     it 'should return app_id' do
@@ -161,25 +165,47 @@ describe OpenMeta::ViewHelper do
     end
   end
   
+  # title
+  context 'displaying title' do
+    it 'should display title when "title" used' do
+      @view.title('some-title')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-title" property="og:title" />')
+    end
+
+    it 'should display title when "single_open_meta" used' do
+      @view.single_open_meta(:title => 'some-title')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-title" property="og:title" />')
+    end
+
+    it 'should display default title' do
+      @view.group_open_meta(:site => 'someSite', :title => 'some-title').should include('<meta content="some-title" property="og:title" />')
+    end
+
+    it 'should use custom title if given' do
+      @view.title('some-title')
+      @view.group_open_meta(:site => 'someSite', :title => 'some-title').should include('<meta content="some-title" property="og:title" />')
+    end
+  end
+  
   # type
   context 'displaying type' do
     it 'should display type when "type" used' do
       @view.type('some-type')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-type" property="og:type" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-type" property="og:type" />')
     end
 
-    it 'should display type when "set_open_meta" used' do
-      @view.set_open_meta(:type => 'some-type')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-type" property="og:type" />')
+    it 'should display type when "single_open_meta" used' do
+      @view.single_open_meta(:type => 'some-type')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-type" property="og:type" />')
     end
 
     it 'should display default type' do
-      @view.display_open_meta(:site => 'someSite', :type => 'some-type').should include('<meta content="some-type" property="og:type" />')
+      @view.group_open_meta(:site => 'someSite', :type => 'some-type').should include('<meta content="some-type" property="og:type" />')
     end
 
     it 'should use custom type if given' do
-      @view.type('some-TYPE')
-      @view.display_open_meta(:site => 'someSite', :type => 'some-TYPE').should include('<meta content="some-TYPE" property="og:type" />')
+      @view.type('some-type')
+      @view.group_open_meta(:site => 'someSite', :type => 'some-type').should include('<meta content="some-type" property="og:type" />')
     end
   end
   
@@ -187,21 +213,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying url' do
     it 'should display url when "url" used' do
       @view.url('some-url')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-url" property="og:url" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-url" property="og:url" />')
     end
 
-    it 'should display url when "set_open_meta" used' do
-      @view.set_open_meta(:url => 'some-url')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-url" property="og:url" />')
+    it 'should display url when "single_open_meta" used' do
+      @view.single_open_meta(:url => 'some-url')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-url" property="og:url" />')
     end
 
     it 'should display default url' do
-      @view.display_open_meta(:site => 'someSite', :url => 'some-url').should include('<meta content="some-url" property="og:url" />')
+      @view.group_open_meta(:site => 'someSite', :url => 'some-url').should include('<meta content="some-url" property="og:url" />')
     end
 
     it 'should use custom url if given' do
-      @view.url('some-URL')
-      @view.display_open_meta(:site => 'someSite', :url => 'some-URL').should include('<meta content="some-URL" property="og:url" />')
+      @view.url('some-url')
+      @view.group_open_meta(:site => 'someSite', :url => 'some-url').should include('<meta content="some-url" property="og:url" />')
     end
   end
   
@@ -209,21 +235,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying image' do
     it 'should display image when "image" used' do
       @view.image('some-image')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-image" property="og:image" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-image" property="og:image" />')
     end
 
-    it 'should display image when "set_open_meta" used' do
-      @view.set_open_meta(:image => 'some-image')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-image" property="og:image" />')
+    it 'should display image when "single_open_meta" used' do
+      @view.single_open_meta(:image => 'some-image')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-image" property="og:image" />')
     end
 
     it 'should display default image' do
-      @view.display_open_meta(:site => 'someSite', :image => 'some-image').should include('<meta content="some-image" property="og:image" />')
+      @view.group_open_meta(:site => 'someSite', :image => 'some-image').should include('<meta content="some-image" property="og:image" />')
     end
 
     it 'should use custom image if given' do
-      @view.image('some-IMAGE')
-      @view.display_open_meta(:site => 'someSite', :image => 'some-IMAGE').should include('<meta content="some-IMAGE" property="og:image" />')
+      @view.image('some-image')
+      @view.group_open_meta(:site => 'someSite', :image => 'some-image').should include('<meta content="some-image" property="og:image" />')
     end
   end
   
@@ -231,21 +257,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying description' do
     it 'should display description when "description" used' do
       @view.description('some-description')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-description" property="og:description" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-description" property="og:description" />')
     end
     
     it 'should display description when "description" used' do
-      @view.set_open_meta(:description => 'some-description')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-description" property="og:description" />')
+      @view.single_open_meta(:description => 'some-description')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-description" property="og:description" />')
     end
     
     it 'should display default description' do
-      @view.display_open_meta(:site => 'someSite', :description => 'some-description').should include('<meta content="some-description" property="og:description" />')
+      @view.group_open_meta(:site => 'someSite', :description => 'some-description').should include('<meta content="some-description" property="og:description" />')
     end
     
     it 'should use custom description if given' do
-      @view.description('some-DESCRIPTION')
-      @view.display_open_meta(:site => 'someSite', :description => 'some-DESCRIPTION').should include('<meta content="some-DESCRIPTION" property="og:description" />')
+      @view.description('some-description')
+      @view.group_open_meta(:site => 'someSite', :description => 'some-description').should include('<meta content="some-description" property="og:description" />')
     end
   end
   
@@ -253,21 +279,55 @@ describe OpenMeta::ViewHelper do
   context 'displaying site_name' do
     it 'should display site_name when "site_name" used' do
       @view.site_name('some-site_name')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-site_name" property="og:site_name" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-site_name" property="og:site_name" />')
     end
 
-    it 'should display site_name when "set_open_meta" used' do
-      @view.set_open_meta(:site_name => 'some-site_name')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-site_name" property="og:site_name" />')
+    it 'should display site_name when "single_open_meta" used' do
+      @view.single_open_meta(:site_name => 'some-site_name')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-site_name" property="og:site_name" />')
     end
 
     it 'should display default site_name' do
-      @view.display_open_meta(:site => 'someSite', :site_name => 'some-site_name').should include('<meta content="some-site_name" property="og:site_name" />')
+      @view.group_open_meta(:site => 'someSite', :site_name => 'some-site_name').should include('<meta content="some-site_name" property="og:site_name" />')
     end
 
     it 'should use custom site_name if given' do
-      @view.site_name('some-SITE_NAME')
-      @view.display_open_meta(:site => 'someSite', :site_name => 'some-SITE_NAME').should include('<meta content="some-SITE_NAME" property="og:site_name" />')
+      @view.site_name('some-site_name')
+      @view.group_open_meta(:site => 'someSite', :site_name => 'some-site_name').should include('<meta content="some-site_name" property="og:site_name" />')
+    end
+  end
+  
+  # admins
+  context 'displaying admins' do
+    it 'should display admins when "admins" used' do
+      @view.admins('some-admins')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-admins" property="fb:admins" />')
+    end
+  
+    it 'should display admins when "single_open_meta" used' do
+      @view.single_open_meta(:admins => 'some-admins')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-admins" property="fb:admins" />')
+    end
+  
+    it 'should display default admins' do
+      @view.group_open_meta(:site => 'someSite', :admins => 'some-admins').should include('<meta content="some-admins" property="fb:admins" />')
+    end
+  
+    it 'should use custom admins if given' do
+      @view.admins('some-admins')
+      @view.group_open_meta(:site => 'someSite', :admins => 'some-admins').should include('<meta content="some-admins" property="fb:admins" />')
+    end
+    
+    it 'should lowercase admins' do
+      @view.group_open_meta(:site => 'someSite', :admins => 'some-Admins').should include('<meta content="some-admins" property="fb:admins" />')
+    end
+
+    it 'should join admins from Array' do
+      @view.group_open_meta(:site => 'someSite', :admins => %w(user_id1 user_id2)).should include('<meta content="user_id1, user_id2" property="fb:admins" />')
+    end
+
+    it 'should join admins from nested Arrays' do
+      @view.group_open_meta(:site => 'someSite', :admins => [%w(user_id1 user_id2), 'user_id3']).should include('<meta content="user_id1, user_id2, user_id3" property="fb:admins" />')
     end
   end
   
@@ -275,21 +335,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying app_id' do
     it 'should display app_id when "app_id" used' do
       @view.app_id('some-app_id')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-app_id" property="fb:app_id" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-app_id" property="fb:app_id" />')
     end
   
-    it 'should display app_id when "set_open_meta" used' do
-      @view.set_open_meta(:app_id => 'some-app_id')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-app_id" property="fb:app_id" />')
+    it 'should display app_id when "single_open_meta" used' do
+      @view.single_open_meta(:app_id => 'some-app_id')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-app_id" property="fb:app_id" />')
     end
   
     it 'should display default app_id' do
-      @view.display_open_meta(:site => 'someSite', :app_id => 'some-app_id').should include('<meta content="some-app_id" property="fb:app_id" />')
+      @view.group_open_meta(:site => 'someSite', :app_id => 'some-app_id').should include('<meta content="some-app_id" property="fb:app_id" />')
     end
   
     it 'should use custom app_id if given' do
-      @view.app_id('some-APP_ID')
-      @view.display_open_meta(:site => 'someSite', :app_id => 'some-APP_ID').should include('<meta content="some-APP_ID" property="fb:app_id" />')
+      @view.app_id('some-app_id')
+      @view.group_open_meta(:site => 'someSite', :app_id => 'some-app_id').should include('<meta content="some-app_id" property="fb:app_id" />')
     end
   end
   
@@ -297,21 +357,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying latitude' do
     it 'should display latitude when "latitude" used' do
       @view.latitude('some-latitude')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-latitude" property="og:latitude" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-latitude" property="og:latitude" />')
     end
 
-    it 'should display latitude when "set_open_meta" used' do
-      @view.set_open_meta(:latitude => 'some-latitude')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-latitude" property="og:latitude" />')
+    it 'should display latitude when "single_open_meta" used' do
+      @view.single_open_meta(:latitude => 'some-latitude')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-latitude" property="og:latitude" />')
     end
 
     it 'should display default latitude' do
-      @view.display_open_meta(:site => 'someSite', :latitude => 'some-latitude').should include('<meta content="some-latitude" property="og:latitude" />')
+      @view.group_open_meta(:site => 'someSite', :latitude => 'some-latitude').should include('<meta content="some-latitude" property="og:latitude" />')
     end
 
     it 'should use custom latitude if given' do
-      @view.latitude('some-LATITUDE')
-      @view.display_open_meta(:site => 'someSite', :latitude => 'some-LATITUDE').should include('<meta content="some-LATITUDE" property="og:latitude" />')
+      @view.latitude('some-latitude')
+      @view.group_open_meta(:site => 'someSite', :latitude => 'some-latitude').should include('<meta content="some-latitude" property="og:latitude" />')
     end
   end
   
@@ -319,21 +379,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying longitude' do
     it 'should display longitude when "longitude" used' do
       @view.longitude('some-longitude')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-longitude" property="og:longitude" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-longitude" property="og:longitude" />')
     end
 
-    it 'should display longitude when "set_open_meta" used' do
-      @view.set_open_meta(:longitude => 'some-longitude')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-longitude" property="og:longitude" />')
+    it 'should display longitude when "single_open_meta" used' do
+      @view.single_open_meta(:longitude => 'some-longitude')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-longitude" property="og:longitude" />')
     end
 
     it 'should display default longitude' do
-      @view.display_open_meta(:site => 'someSite', :longitude => 'some-longitude').should include('<meta content="some-longitude" property="og:longitude" />')
+      @view.group_open_meta(:site => 'someSite', :longitude => 'some-longitude').should include('<meta content="some-longitude" property="og:longitude" />')
     end
 
     it 'should use custom longitude if given' do
-      @view.longitude('some-LONGITUDE')
-      @view.display_open_meta(:site => 'someSite', :longitude => 'some-LONGITUDE').should include('<meta content="some-LONGITUDE" property="og:longitude" />')
+      @view.longitude('some-longitude')
+      @view.group_open_meta(:site => 'someSite', :longitude => 'some-longitude').should include('<meta content="some-longitude" property="og:longitude" />')
     end
   end
   
@@ -341,21 +401,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying street_address' do
     it 'should display street_address when "street_address" used' do
       @view.street_address('some-street_address')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-street_address" property="og:street-address" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-street_address" property="og:street-address" />')
     end
   
-    it 'should display street_address when "set_open_meta" used' do
-      @view.set_open_meta(:street_address => 'some-street_address')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-street_address" property="og:street-address" />')
+    it 'should display street_address when "single_open_meta" used' do
+      @view.single_open_meta(:street_address => 'some-street_address')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-street_address" property="og:street-address" />')
     end
   
     it 'should display default street_address' do
-      @view.display_open_meta(:site => 'someSite', :street_address => 'some-street_address').should include('<meta content="some-street_address" property="og:street-address" />')
+      @view.group_open_meta(:site => 'someSite', :street_address => 'some-street_address').should include('<meta content="some-street_address" property="og:street-address" />')
     end
   
     it 'should use custom street_address if given' do
-      @view.street_address('some-STREET_ADDRESS')
-      @view.display_open_meta(:site => 'someSite', :street_address => 'some-STREET_ADDRESS').should include('<meta content="some-STREET_ADDRESS" property="og:street-address" />')
+      @view.street_address('some-street_address')
+      @view.group_open_meta(:site => 'someSite', :street_address => 'some-street_address').should include('<meta content="some-street_address" property="og:street-address" />')
     end
   end
   
@@ -363,21 +423,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying locality' do
     it 'should display locality when "locality" used' do
       @view.locality('some-locality')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-locality" property="og:locality" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-locality" property="og:locality" />')
     end
 
-    it 'should display locality when "set_open_meta" used' do
-      @view.set_open_meta(:locality => 'some-locality')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-locality" property="og:locality" />')
+    it 'should display locality when "single_open_meta" used' do
+      @view.single_open_meta(:locality => 'some-locality')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-locality" property="og:locality" />')
     end
 
     it 'should display default locality' do
-      @view.display_open_meta(:site => 'someSite', :locality => 'some-locality').should include('<meta content="some-locality" property="og:locality" />')
+      @view.group_open_meta(:site => 'someSite', :locality => 'some-locality').should include('<meta content="some-locality" property="og:locality" />')
     end
 
     it 'should use custom locality if given' do
-      @view.locality('some-LOCALITY')
-      @view.display_open_meta(:site => 'someSite', :locality => 'some-LOCALITY').should include('<meta content="some-LOCALITY" property="og:locality" />')
+      @view.locality('some-locality')
+      @view.group_open_meta(:site => 'someSite', :locality => 'some-locality').should include('<meta content="some-locality" property="og:locality" />')
     end
   end
   
@@ -385,21 +445,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying region' do
     it 'should display region when "region" used' do
       @view.region('some-region')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-region" property="og:region" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-region" property="og:region" />')
     end
 
-    it 'should display region when "set_open_meta" used' do
-      @view.set_open_meta(:region => 'some-region')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-region" property="og:region" />')
+    it 'should display region when "single_open_meta" used' do
+      @view.single_open_meta(:region => 'some-region')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-region" property="og:region" />')
     end
 
     it 'should display default region' do
-      @view.display_open_meta(:site => 'someSite', :region => 'some-region').should include('<meta content="some-region" property="og:region" />')
+      @view.group_open_meta(:site => 'someSite', :region => 'some-region').should include('<meta content="some-region" property="og:region" />')
     end
 
     it 'should use custom region if given' do
-      @view.region('some-REGION')
-      @view.display_open_meta(:site => 'someSite', :region => 'some-REGION').should include('<meta content="some-REGION" property="og:region" />')
+      @view.region('some-region')
+      @view.group_open_meta(:site => 'someSite', :region => 'some-region').should include('<meta content="some-region" property="og:region" />')
     end
   end
   
@@ -407,21 +467,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying postal_code' do
     it 'should display postal_code when "postal_code" used' do
       @view.postal_code('some-postal_code')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-postal_code" property="og:postal-code" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-postal_code" property="og:postal-code" />')
     end
   
-    it 'should display postal_code when "set_open_meta" used' do
-      @view.set_open_meta(:postal_code => 'some-postal_code')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-postal_code" property="og:postal-code" />')
+    it 'should display postal_code when "single_open_meta" used' do
+      @view.single_open_meta(:postal_code => 'some-postal_code')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-postal_code" property="og:postal-code" />')
     end
   
     it 'should display default postal_code' do
-      @view.display_open_meta(:site => 'someSite', :postal_code => 'some-postal_code').should include('<meta content="some-postal_code" property="og:postal-code" />')
+      @view.group_open_meta(:site => 'someSite', :postal_code => 'some-postal_code').should include('<meta content="some-postal_code" property="og:postal-code" />')
     end
   
     it 'should use custom postal_code if given' do
-      @view.postal_code('some-POSTAL_CODE')
-      @view.display_open_meta(:site => 'someSite', :postal_code => 'some-POSTAL_CODE').should include('<meta content="some-POSTAL_CODE" property="og:postal-code" />')
+      @view.postal_code('some-postal_code')
+      @view.group_open_meta(:site => 'someSite', :postal_code => 'some-postal_code').should include('<meta content="some-postal_code" property="og:postal-code" />')
     end
   end
   
@@ -429,21 +489,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying country_name' do
     it 'should display country_name when "country_name" used' do
       @view.country_name('some-country_name')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-country_name" property="og:country-name" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-country_name" property="og:country-name" />')
     end
   
-    it 'should display country_name when "set_open_meta" used' do
-      @view.set_open_meta(:country_name => 'some-country_name')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-country_name" property="og:country-name" />')
+    it 'should display country_name when "single_open_meta" used' do
+      @view.single_open_meta(:country_name => 'some-country_name')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-country_name" property="og:country-name" />')
     end
   
     it 'should display default country_name' do
-      @view.display_open_meta(:site => 'someSite', :country_name => 'some-country_name').should include('<meta content="some-country_name" property="og:country-name" />')
+      @view.group_open_meta(:site => 'someSite', :country_name => 'some-country_name').should include('<meta content="some-country_name" property="og:country-name" />')
     end
   
     it 'should use custom country_name if given' do
-      @view.country_name('some-COUNTRY_NAME')
-      @view.display_open_meta(:site => 'someSite', :country_name => 'some-COUNTRY_NAME').should include('<meta content="some-COUNTRY_NAME" property="og:country-name" />')
+      @view.country_name('some-country_name')
+      @view.group_open_meta(:site => 'someSite', :country_name => 'some-country_name').should include('<meta content="some-country_name" property="og:country-name" />')
     end
   end
   
@@ -451,21 +511,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying email' do
     it 'should display email when "email" used' do
       @view.email('some-email')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-email" property="og:email" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-email" property="og:email" />')
     end
 
-    it 'should display email when "set_open_meta" used' do
-      @view.set_open_meta(:email => 'some-email')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-email" property="og:email" />')
+    it 'should display email when "single_open_meta" used' do
+      @view.single_open_meta(:email => 'some-email')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-email" property="og:email" />')
     end
 
     it 'should display default email' do
-      @view.display_open_meta(:site => 'someSite', :email => 'some-email').should include('<meta content="some-email" property="og:email" />')
+      @view.group_open_meta(:site => 'someSite', :email => 'some-email').should include('<meta content="some-email" property="og:email" />')
     end
 
     it 'should use custom email if given' do
-      @view.email('some-EMAIL')
-      @view.display_open_meta(:site => 'someSite', :email => 'some-EMAIL').should include('<meta content="some-EMAIL" property="og:email" />')
+      @view.email('some-email')
+      @view.group_open_meta(:site => 'someSite', :email => 'some-email').should include('<meta content="some-email" property="og:email" />')
     end
   end
   
@@ -473,21 +533,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying phone_number' do
     it 'should display phone_number when "phone_number" used' do
       @view.phone_number('some-phone_number')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-phone_number" property="og:phone_number" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-phone_number" property="og:phone_number" />')
     end
 
-    it 'should display phone_number when "set_open_meta" used' do
-      @view.set_open_meta(:phone_number => 'some-phone_number')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-phone_number" property="og:phone_number" />')
+    it 'should display phone_number when "single_open_meta" used' do
+      @view.single_open_meta(:phone_number => 'some-phone_number')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-phone_number" property="og:phone_number" />')
     end
 
     it 'should display default phone_number' do
-      @view.display_open_meta(:site => 'someSite', :phone_number => 'some-phone_number').should include('<meta content="some-phone_number" property="og:phone_number" />')
+      @view.group_open_meta(:site => 'someSite', :phone_number => 'some-phone_number').should include('<meta content="some-phone_number" property="og:phone_number" />')
     end
 
     it 'should use custom phone_number if given' do
-      @view.phone_number('some-PHONE_NUMBER')
-      @view.display_open_meta(:site => 'someSite', :phone_number => 'some-PHONE_NUMBER').should include('<meta content="some-PHONE_NUMBER" property="og:phone_number" />')
+      @view.phone_number('some-phone_number')
+      @view.group_open_meta(:site => 'someSite', :phone_number => 'some-phone_number').should include('<meta content="some-phone_number" property="og:phone_number" />')
     end
   end
   
@@ -495,21 +555,21 @@ describe OpenMeta::ViewHelper do
   context 'displaying fax_number' do
     it 'should display fax_number when "fax_number" used' do
       @view.fax_number('some-fax_number')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-fax_number" property="og:fax_number" />')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-fax_number" property="og:fax_number" />')
     end
 
-    it 'should display fax_number when "set_open_meta" used' do
-      @view.set_open_meta(:fax_number => 'some-fax_number')
-      @view.display_open_meta(:site => 'someSite').should include('<meta content="some-fax_number" property="og:fax_number" />')
+    it 'should display fax_number when "single_open_meta" used' do
+      @view.single_open_meta(:fax_number => 'some-fax_number')
+      @view.group_open_meta(:site => 'someSite').should include('<meta content="some-fax_number" property="og:fax_number" />')
     end
 
     it 'should display default fax_number' do
-      @view.display_open_meta(:site => 'someSite', :fax_number => 'some-fax_number').should include('<meta content="some-fax_number" property="og:fax_number" />')
+      @view.group_open_meta(:site => 'someSite', :fax_number => 'some-fax_number').should include('<meta content="some-fax_number" property="og:fax_number" />')
     end
 
     it 'should use custom fax_number if given' do
-      @view.fax_number('some-FAX_NUMBER')
-      @view.display_open_meta(:site => 'someSite', :fax_number => 'some-FAX_NUMBER').should include('<meta content="some-FAX_NUMBER" property="og:fax_number" />')
+      @view.fax_number('some-fax_number')
+      @view.group_open_meta(:site => 'someSite', :fax_number => 'some-fax_number').should include('<meta content="some-fax_number" property="og:fax_number" />')
     end
   end
 
