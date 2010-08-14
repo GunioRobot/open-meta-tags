@@ -22,7 +22,14 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.rdoc",
      "Rakefile",
-     "VERSION"
+     "VERSION",
+     "init.rb",
+     "lib/open_meta.rb",
+     "lib/open_meta/controller_helper.rb",
+     "lib/open_meta/view_helper.rb",
+     "open-meta.gemspec",
+     "spec/open_meta_spec.rb",
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/jonathannelson/open-meta}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -39,9 +46,12 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     else
+      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     end
   else
+    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
   end
 end
 
