@@ -49,7 +49,8 @@ These Open Graph tags allow you to specify structured information about your web
     </html>
   
 **2.** Define Open Meta Tags in your controller using instance variables:
-
+    
+    # Example: example_controller.rb
     @page_title        = 'Day & Age'
     @page_type         = 'music'
     @page_site_name    = 'Amazon'
@@ -59,7 +60,8 @@ These Open Graph tags allow you to specify structured information about your web
     @page_description  = 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
   
 **3.** Use Open Meta Tags in your views using the following methods:
-
+    
+    # Example: single.html.haml
     - content_for :head do
       = title 'Day & Age'
       = type 'music'
@@ -67,8 +69,14 @@ These Open Graph tags allow you to specify structured information about your web
  
 **4.** Use Open Meta Tags in your view using the `single_meta_tags` method:
 
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :title => 'Day & Age', :type => 'music', :description => 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+      
+**5.** Use Open Meta Tags in your view using the `global_meta_tags` method:
+
+    # Example: application.html.haml
+    = global_meta_tags :title => 'The Killers', :type => 'music', :description => 'The Killers are an American Indie band from Las Vegas, Nevada, which formed in 2002. The band consists of Brandon Flowers (vocals, keyboards), Dave Keuning (guitar, backing vocals), Mark Stoermer (bass guitar, backing vocals) and Ronnie Vannucci Jr. (drums, percussion).'
     
 ## Options
 
@@ -103,7 +111,8 @@ If you wish to specify a human readable address, include the following five prop
 * country-name - e.g., "USA"
 
 **This:**
-
+    
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :street-address => '1 Infinite Loop', :locality => 'Cupertino', :region => 'CA', :postal_code => '95014', :country_name => 'USA'
 
@@ -129,6 +138,7 @@ The Open Graph protocol supports the ability for you to specify contact informat
 
 **This:**
 
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :email => 'john@doe.com', :phone_number => '1-800-555-1234', :fax_number => '1-800-555-5678'
 
@@ -146,6 +156,7 @@ In order for your object to be represented within the graph, you need to specify
 
 **This:**
 
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :type => 'product'
 
@@ -208,6 +219,7 @@ For products** which have a UPC code or ISBN number, you can specify them using 
 
 **This:**
 
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :upc => '123456789012', :isbn => '90-70002-34-5'
 
@@ -224,6 +236,7 @@ For products** which have a UPC code or ISBN number, you can specify them using 
 
 **This:**
 
+    # Example: single.html.haml
     - content_for :head do
       = single_meta_tags :article => 'http://mashable.com/2010/07/16/apple-free-iphone-4-cases/', :blog => 'http://mashable.com'
 
