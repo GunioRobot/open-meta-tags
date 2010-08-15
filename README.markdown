@@ -11,13 +11,18 @@
 
 ## Synopsis
 
-Open Meta Tags is an Open Graph tool for the Ruby programming language. It enables you to turn normal web pages into meta objects in the graph. Once pages become objects in the graph, users can establish connections to your pages as they do on Facebook Pages. The value of providing structured data through the Open Graph means that your pages will show up richly across Facebook: in user profiles, within search results and in News Feed.
+Open Meta Tags is an Open Graph tool for the Ruby programming language. It enables you to turn normal web pages into meta objects in the graph. Once pages become objects in the graph, users can establish connections to your pages as they do on Facebook Pages. The value of providing structured data through the Open Graph means that your pages will show up richly across Facebook: in user profiles, within search results and in News Feed.
 
 ## Requirements
 
 In order to turn web pages into Open Graph objects, you'll need the following in your Rails app:
 
 * Install the Open Meta Tags gem
+* Add the following html tag:
+
+    `<html xmlns:og="http://opengraphprotocol.org/schema/"
+          xmlns:fb="http://www.facebook.com/2008/fbml">`
+          
 * Add Open Meta Tags to your web pages
 * Add the Facebook Like button to your web pages
 
