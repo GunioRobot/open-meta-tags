@@ -6,7 +6,7 @@
 * **Contributors**: See Contributors section below
 * **Copyright**:    2010    
 * **License**:      MIT License    
-* **Latest Version**: 0.3.0   
+* **Latest Version**: 0.4.0   
 * **Release Date**: August 13th 2010
 
 ## Synopsis
