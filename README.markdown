@@ -22,8 +22,7 @@ In order to turn web pages into Open Graph objects, you'll need the following in
 * Add the Facebook Like button to your web pages
 * Modify your sitewide html tag with the following:
 
-    <html xmlns:og="http://opengraphprotocol.org/schema/"
-          xmlns:fb="http://www.facebook.com/2008/fbml">
+    <html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">
 
 Feature List
 ------------
