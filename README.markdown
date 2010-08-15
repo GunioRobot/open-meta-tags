@@ -22,8 +22,8 @@ In order to turn web pages into Open Graph objects, you'll need the following in
 * Add the Facebook Like button to your web pages
 * Modify your sitewide html tag with the following:
 
-<html xmlns:og="http://opengraphprotocol.org/schema/"
-      xmlns:fb="http://www.facebook.com/2008/fbml">
+    <html xmlns:og="http://opengraphprotocol.org/schema/"
+          xmlns:fb="http://www.facebook.com/2008/fbml">
 
 Feature List
 ------------
@@ -32,25 +32,25 @@ Feature List
 
 These Open Graph tags allow you to specify structured information about your web pages. The more information you provide, the more opportunities your web pages can be surfaced within Facebook today and in the future. Here's an example for a music page:
      
-<html xmlns:og="http://opengraphprotocol.org/schema/"
-      xmlns:fb="http://www.facebook.com/2008/fbml">
-  <head>
-    <title>Day & Age (2008)</title>
-    <meta property="og:title" content="Day & Age"/>
-    <meta property="og:type" content="music"/>
-    <meta property="og:url" content="http://www.amazon.com/Day-Age-Killers/dp/B001FWRZ46/"/>
-    <meta property="og:image" content="http://ecx.images-amazon.com/images/I/61CK4wp-HTL._SL500_AA300_.jpg"/>
-    <meta property="og:site_name" content="Amazon"/>
-    <meta property="fb:admins" content="USER_ID"/>
-    <meta property="og:description"
-          content="Day & Age is the third studio album by
-                   American rock band The Killers, released
-                   on November 24, 2008 in the UK, Canada and
-                   the US."/>
-    ...
-  </head>
-  ...
-</html>
+    <html xmlns:og="http://opengraphprotocol.org/schema/"
+          xmlns:fb="http://www.facebook.com/2008/fbml">
+      <head>
+        <title>Day & Age (2008)</title>
+        <meta property="og:title" content="Day & Age"/>
+        <meta property="og:type" content="music"/>
+        <meta property="og:url" content="http://www.amazon.com/Day-Age-Killers/dp/B001FWRZ46/"/>
+        <meta property="og:image" content="http://ecx.images-amazon.com/images/I/61CK4wp-HTL._SL500_AA300_.jpg"/>
+        <meta property="og:site_name" content="Amazon"/>
+        <meta property="fb:admins" content="USER_ID"/>
+        <meta property="og:description"
+              content="Day & Age is the third studio album by
+                       American rock band The Killers, released
+                       on November 24, 2008 in the UK, Canada and
+                       the US."/>
+        ...
+      </head>
+      ...
+    </html>
   
 **2.** Define Open Meta tags in your controller using instance variables:
 
