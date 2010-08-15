@@ -20,9 +20,6 @@ In order to turn web pages into Open Graph objects, you'll need the following in
 * Install the Open Meta gem
 * Add Open Meta tags to your web pages
 * Add the Facebook Like button to your web pages
-* Modify your sitewide html tag with the following:
-
-    <html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">
 
 Feature List
 ------------
@@ -63,10 +60,10 @@ These Open Graph tags allow you to specify structured information about your web
   
 **3.** Use Open Meta tags in your views using the following methods:
 
-   - content_for :head do
-     = title 'Day & Age'
-     = type 'music'
-     = description 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+    - content_for :head do
+      = title 'Day & Age'
+      = type 'music'
+      = description 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
  
 **4.** Use Open Meta tags in your view using the post_open_meta method:
 
@@ -75,7 +72,107 @@ These Open Graph tags allow you to specify structured information about your web
     
 ## Options
 
-You can use these options to create Open Graph objects using group_open_meta or single_open_meta.
+You can use these options to create Open Graph objects using the `global_open_meta` or `single_open_meta` method.
+
+### Basic metadata
+
+* title - The title of your object as it should appear within the graph, e.g., "The Rock".
+* type - The type of your object, e.g., "movie". Depending on the type you specify, other properties may also be required.
+* image - An image URL which should represent your object within the graph.
+* url - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., "http://www.imdb.com/title/tt0117500/".
+* description - A one to two sentence description of your object. Limited to 150 characters. 
+* site_name - If your object is part of a larger web site, the name which should be displayed for the overall site. e.g., "IMDb".
+* admins - A comma-separated list of Facebook user IDs that administer the page.
+* app_id - A Facebook Platform application ID that administers the page.
+
+### Specifying locations
+
+The Open Graph protocol supports the ability for you to specify location information for your object. This is useful if your object is for a business or anything else with a real-world location. You can specify location via latitude and longitude, a full address, or both. The property names used are defined within the [Microformat hCard](http://microformats.org/wiki/hcard).
+
+In order to specify latitude and longitude, include the following two properties:
+
+* latitude - e.g., "37.33182".
+* longitude - e.g., "-122.03118".
+
+If you wish to specify a human readable address, include the following five properties:
+
+* street-address - e.g., "1 Infinite Loop"
+* locality - e.g, "Cupertino"
+* region - e.g., "CA"
+* postal-code e.g., "95014"
+* country-name - e.g., "USA"
+
+### Specifying contact information
+
+The Open Graph protocol supports the ability for you to specify contact information for your object. It's likely that future versions of the protocol will support extracting this information from the body of your page. In order to specify contact information, include at least one of the following three properties:
+
+* email - e.g., "john@doe.com".
+* phone_number - e.g., "+1-800-555-1234".
+* fax_number - e.g., "+1-800-555-5678".
+
+## Object Types
+
+In order for your object to be represented within the graph, you need to specify its type. This is done using the `:type` property:
+  
+  `<meta property="og:type" content="product" />`
+  
+The base schema includes the following types. It's possible that social networks will choose to support only a subset of these types or create additional types based on their niche.
+
+### Activities
+activity
+sport
+
+### Businesses
+bar
+company
+cafe
+hotel
+restaurant
+
+### Groups
+cause
+sports_league
+sports_team
+
+### Organizations
+band
+government
+non_profit
+school
+university
+
+### People
+actor
+athlete
+author
+director
+musician
+politician
+public_figure
+
+### Places
+city
+country
+landmark
+state_province
+
+### Products and Entertainment
+album
+book
+drink
+food
+game
+movie
+product
+song
+tv_show
+
+For products which have a UPC code or ISBN number, you can specify them using the `:upc` and `og:isbn` properties. These properties help to make more concrete connections between graphs.
+
+### Websites
+article
+blog
+website
 
 ## Note on Patches/Pull Requests
  

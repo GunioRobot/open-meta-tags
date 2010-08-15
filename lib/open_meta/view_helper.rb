@@ -47,11 +47,11 @@ module OpenMeta
       end
     end
 
-    meta_methods :title, :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number
+    meta_methods :title, :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number, :upc, :isbn
 
     #####  set default metadata values and display metadata
 
-    def group_open_meta(default = {})
+    def global_open_meta(default = {})
       open_meta = (default || {}).merge(@open_meta || {})
 
       result = []
@@ -77,7 +77,7 @@ module OpenMeta
       result << tag(:meta, :property => 'og:country-name', :content => country_name) unless country_name.blank?
       
       # metaprogramming
-      [:title, :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number].each do |attr|
+      [:title, :type, :url, :image, :site_name, :latitude, :longitude, :locality, :region, :email, :phone_number, :fax_number, :upc, :isbn].each do |attr|
         result << tag(:meta, :property => "og:#{attr}", :content => open_meta[attr]) unless open_meta[attr].blank?
       end
 

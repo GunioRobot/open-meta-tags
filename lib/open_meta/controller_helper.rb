@@ -31,6 +31,9 @@ module OpenMeta
         open_meta[:email]            = @page_email            if @page_email
         open_meta[:phone_number]     = @phone_number          if @phone_number
         open_meta[:fax_number]       = @fax_number            if @fax_number
+        # Specify shipping information
+        open_meta[:upc]              = @upc                   if @upc
+        open_meta[:isbn]             = @isbn                  if @isbn
         single_open_meta(open_meta)
 
         render_without_open_meta(*args, &block)
