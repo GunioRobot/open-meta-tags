@@ -102,77 +102,136 @@ If you wish to specify a human readable address, include the following five prop
 * postal-code e.g., "95014"
 * country-name - e.g., "USA"
 
+**This:**
+
+    - content_for :head do
+      = single_open_meta :street-address => '1 Infinite Loop', :locality => 'Cupertino', :region => 'CA', :postal_code => '95014', :country_name => 'USA'
+
+**Produces:**
+
+    <meta property="og:street-address" content="john@doe.com" />
+
+    <meta property="og:locality" content="1-800-555-1234" />
+
+    <meta property="og:region" content="1-800-555-5678" />
+    
+    <meta property="og:postal-code" content="1-800-555-5678" />
+    
+    <meta property="og:country-name" content="1-800-555-5678" />
+
 ### Specifying contact information
 
 The Open Graph protocol supports the ability for you to specify contact information for your object. It's likely that future versions of the protocol will support extracting this information from the body of your page. In order to specify contact information, include at least one of the following three properties:
 
 * email - e.g., "john@doe.com".
-* phone_number - e.g., "+1-800-555-1234".
-* fax_number - e.g., "+1-800-555-5678".
+* phone_number - e.g., "1-800-555-1234".
+* fax_number - e.g., "1-800-555-5678".
+
+**This:**
+
+    - content_for :head do
+      = single_open_meta :email => 'john@doe.com', :phone_number => '1-800-555-1234', :fax_number => '1-800-555-5678'
+
+**Produces:**
+
+    <meta property="og:email" content="john@doe.com" />
+
+    <meta property="og:phone-number" content="1-800-555-1234" />
+
+    <meta property="og:fax-number" content="1-800-555-5678" />
 
 ## Object Types
 
 In order for your object to be represented within the graph, you need to specify its type. This is done using the `:type` property:
-  
-  `<meta property="og:type" content="product" />`
+
+**This:**
+
+    - content_for :head do
+      = single_open_meta :type => 'product'
+
+**Produces:**
+
+    <meta property="og:type" content="product" />
   
 The base schema includes the following types. It's possible that social networks will choose to support only a subset of these types or create additional types based on their niche.
 
 ### Activities
-activity
-sport
+* activity
+* sport
 
 ### Businesses
-bar
-company
-cafe
-hotel
-restaurant
+* bar
+* company
+* cafe
+* hotel
+* restaurant
 
 ### Groups
-cause
-sports_league
-sports_team
+* cause
+* sports_league
+* sports_team
 
 ### Organizations
-band
-government
-non_profit
-school
-university
+* band
+* government
+* non_profit
+* school
+* university
 
 ### People
-actor
-athlete
-author
-director
-musician
-politician
-public_figure
+* actor
+* athlete
+* author
+* director
+* musician
+* politician
+* public_figure
 
 ### Places
-city
-country
-landmark
-state_province
+* city
+* country
+* landmark
+* state_province
 
 ### Products and Entertainment
-album
-book
-drink
-food
-game
-movie
-product
-song
-tv_show
+* album
+* book
+* drink
+* food
+* game
+* movie
+* product
+* song
+* tv_show
 
-For products which have a UPC code or ISBN number, you can specify them using the `:upc` and `og:isbn` properties. These properties help to make more concrete connections between graphs.
+For **products** which have a **UPC** code or **ISBN** number, you can specify them using the **`:upc`** and **`:isbn`** properties. These properties help to make more concrete connections between graphs.
+
+**This:**
+
+    - content_for :head do
+      = single_open_meta :upc => '123456789012', :isbn => '90-70002-34-5'
+
+**Produces:**
+
+    <meta property="og:upc" content="123456789012" />
+    
+    <meta property="og:isbn" content="90-70002-34-5" />
 
 ### Websites
-article
-blog
-website
+* article
+* blog
+* website
+
+**This:**
+
+    - content_for :head do
+      = single_open_meta :article => 'http://mashable.com/2010/07/16/apple-free-iphone-4-cases/', :blog => 'http://mashable.com'
+
+**Produces:**
+
+    <meta property="og:article" content="http://mashable.com/2010/07/16/apple-free-iphone-4-cases/" />
+    
+    <meta property="og:blog" content="http://mashable.com" />
 
 ## Note on Patches/Pull Requests
  
