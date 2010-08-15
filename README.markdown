@@ -20,8 +20,7 @@ In order to turn web pages into Open Graph objects, you'll need the following in
 * Install the Open Meta Tags gem
 * Add the following html tag:
 
-    `<html xmlns:og="http://opengraphprotocol.org/schema/"
-          xmlns:fb="http://www.facebook.com/2008/fbml">`
+    `<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">`
           
 * Add Open Meta Tags to your web pages
 * Add the Facebook Like button to your web pages
