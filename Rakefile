@@ -3,7 +3,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "open-meta"
+    gem.name = "open-meta-tags"
     gem.summary = %Q{A}
     gem.description = %Q{something}
     gem.email = "jonathan@intridea.com"

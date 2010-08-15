@@ -1,1 +1,1 @@
-require 'open_meta'
+require 'open_meta_tags'

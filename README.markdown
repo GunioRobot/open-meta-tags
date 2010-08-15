@@ -1,4 +1,4 @@
-## Open Meta: Integrate Web page metadata into the Facebook social graph.
+## Open Meta Tags: Integrate Web page metadata into the Facebook social graph.
 
 * **Homepage**:     [http://intridea.com](http://intridea.com)
 * **Git**:          [http://github.com/intridea/open-meta](http://github.com/intridea/open-meta)
@@ -11,14 +11,14 @@
 
 ## Synopsis
 
-Open Meta is an Open Graph tool for the Ruby programming language. It enables you to turn normal web pages into meta objects in the graph. Once pages become objects in the graph, users can establish connections to your pages as they do on Facebook Pages. The value of providing structured data through the Open Graph means that your pages will show up richly across Facebook: in user profiles, within search results and in News Feed.
+Open Meta Tags is an Open Graph tool for the Ruby programming language. It enables you to turn normal web pages into meta objects in the graph. Once pages become objects in the graph, users can establish connections to your pages as they do on Facebook Pages. The value of providing structured data through the Open Graph means that your pages will show up richly across Facebook: in user profiles, within search results and in News Feed.
 
 ## Requirements
 
 In order to turn web pages into Open Graph objects, you'll need the following in your Rails app:
 
-* Install the Open Meta gem
-* Add Open Meta tags to your web pages
+* Install the Open Meta Tags gem
+* Add Open Meta Tags to your web pages
 * Add the Facebook Like button to your web pages
 
 Feature List
@@ -48,31 +48,31 @@ These Open Graph tags allow you to specify structured information about your web
       ...
     </html>
   
-**2.** Define Open Meta tags in your controller using instance variables:
+**2.** Define Open Meta Tags in your controller using instance variables:
 
     @page_title        = 'Day & Age'
     @page_type         = 'music'
     @page_site_name    = 'Amazon'
     @page_image        = 'http://ecx.images-amazon.com/images/I/61CK4wp-HTL._SL500_AA300_.jpg'
-    @page_admins       = 'USER_ID'
-    @page_app_id_      = 'APP_ID'
+    @page_admins       = 'USER_ID_GOES_HERE'
+    @page_app_id_      = 'APP_ID_GOES_HERE'
     @page_description  = 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
   
-**3.** Use Open Meta tags in your views using the following methods:
+**3.** Use Open Meta Tags in your views using the following methods:
 
     - content_for :head do
       = title 'Day & Age'
       = type 'music'
       = description 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
  
-**4.** Use Open Meta tags in your view using the post_open_meta method:
+**4.** Use Open Meta Tags in your view using the `single_meta_tags` method:
 
     - content_for :head do
-      = single_open_meta :title => 'Day & Age', :type => 'music', :description => 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
+      = single_meta_tags :title => 'Day & Age', :type => 'music', :description => 'Day & Age is the third studio album by American rock band The Killers, released on November 24, 2008 in the UK, Canada and the US.'
     
 ## Options
 
-You can use these options to create Open Graph objects using the `global_open_meta` or `single_open_meta` method.
+You can use these options to create Open Graph objects using the `global_meta_tags` or `single_meta_tags` method.
 
 ### Basic metadata
 
@@ -105,7 +105,7 @@ If you wish to specify a human readable address, include the following five prop
 **This:**
 
     - content_for :head do
-      = single_open_meta :street-address => '1 Infinite Loop', :locality => 'Cupertino', :region => 'CA', :postal_code => '95014', :country_name => 'USA'
+      = single_meta_tags :street-address => '1 Infinite Loop', :locality => 'Cupertino', :region => 'CA', :postal_code => '95014', :country_name => 'USA'
 
 **Produces:**
 
@@ -130,7 +130,7 @@ The Open Graph protocol supports the ability for you to specify contact informat
 **This:**
 
     - content_for :head do
-      = single_open_meta :email => 'john@doe.com', :phone_number => '1-800-555-1234', :fax_number => '1-800-555-5678'
+      = single_meta_tags :email => 'john@doe.com', :phone_number => '1-800-555-1234', :fax_number => '1-800-555-5678'
 
 **Produces:**
 
@@ -147,7 +147,7 @@ In order for your object to be represented within the graph, you need to specify
 **This:**
 
     - content_for :head do
-      = single_open_meta :type => 'product'
+      = single_meta_tags :type => 'product'
 
 **Produces:**
 
@@ -204,12 +204,12 @@ The base schema includes the following types. It's possible that social networks
 * song
 * tv_show
 
-For **products** which have a **UPC** code or **ISBN** number, you can specify them using the **`:upc`** and **`:isbn`** properties. These properties help to make more concrete connections between graphs.
+For products** which have a UPC code or ISBN number, you can specify them using the `:upc` and `:isbn` properties. These properties help to make more concrete connections between graphs.
 
 **This:**
 
     - content_for :head do
-      = single_open_meta :upc => '123456789012', :isbn => '90-70002-34-5'
+      = single_meta_tags :upc => '123456789012', :isbn => '90-70002-34-5'
 
 **Produces:**
 
@@ -225,7 +225,7 @@ For **products** which have a **UPC** code or **ISBN** number, you can specify t
 **This:**
 
     - content_for :head do
-      = single_open_meta :article => 'http://mashable.com/2010/07/16/apple-free-iphone-4-cases/', :blog => 'http://mashable.com'
+      = single_meta_tags :article => 'http://mashable.com/2010/07/16/apple-free-iphone-4-cases/', :blog => 'http://mashable.com'
 
 **Produces:**
 

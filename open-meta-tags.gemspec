@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{open-meta}
+  s.name = %q{open-meta-tags}
   s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -24,8 +24,12 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "init.rb",
-     "lib/open_meta.rb",
+     "lib/open_meta_tags.rb",
+     "lib/open_meta_tags/controller_helper.rb",
+     "lib/open_meta_tags/view_helper.rb",
+     "open-meta-tags.gemspec",
      "open-meta.gemspec",
+     "spec/open_meta_tags_spec.rb",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/jonathannelson/open-meta}
