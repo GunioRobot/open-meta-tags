@@ -1,13 +1,13 @@
-## Open Meta: Integrate your Web pages into the Facebook social graph.
+## Open Meta: Integrate Web page metadata into the Facebook social graph.
 
-**Homepage**:     [http://intridea.com](http://intridea.com)
-**Git**:          [http://github.com/intridea/open-meta](http://github.com/intridea/open-meta)
-**Author**:       Jonathan Nelson
-**Contributors**: See Contributors section below
-**Copyright**:    2010    
-**License**:      MIT License    
-**Latest Version**: 0.3.0   
-**Release Date**: August 13th 2010
+* **Homepage**:     [http://intridea.com](http://intridea.com)
+* **Git**:          [http://github.com/intridea/open-meta](http://github.com/intridea/open-meta)
+* **Author**:       Jonathan Nelson
+* **Contributors**: See Contributors section below
+* **Copyright**:    2010    
+* **License**:      MIT License    
+* **Latest Version**: 0.3.0   
+* **Release Date**: August 13th 2010
 
 ## Synopsis
 
