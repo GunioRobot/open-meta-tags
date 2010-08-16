@@ -250,6 +250,10 @@ For products** which have a UPC code or ISBN number, you can specify them using 
     
     <meta property="og:blog" content="http://mashable.com" />
 
+## Contributors
+* [Jonathan Nelson](http://intridea.com/about/people/jonathan)
+* [Jeremy McAnally](http://intridea.com/about/people/jeremy)
+
 ## Note on Patches/Pull Requests
  
 * Fork the project.
