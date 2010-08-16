@@ -18,12 +18,12 @@ Open Meta Tags is an Open Graph tool for the Ruby programming language. It enabl
 In order to turn web pages into Open Graph objects, you'll need the following in your Rails app:
 
 * Install the Open Meta Tags gem
+  * `gem 'open-meta-tags', :require => 'open_meta_tags'`
 * Add the following html tag:
-
-    `<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">`
-          
+  * `<html xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml">`
 * Add Open Meta Tags to your web pages
-* Add the Facebook Like button to your web pages
+  * See examples below
+* [Add the Facebook Like button to your web pages](http://developers.facebook.com/docs/reference/plugins/like)
 
 Feature List
 ------------
@@ -219,7 +219,7 @@ The base schema includes the following types. It's possible that social networks
 * song
 * tv_show
 
-For products** which have a UPC code or ISBN number, you can specify them using the `:upc` and `:isbn` properties. These properties help to make more concrete connections between graphs.
+For products which have a UPC code or ISBN number, you can specify them using the `:upc` and `:isbn` properties. These properties help to make more concrete connections between graphs.
 
 **This:**
 
