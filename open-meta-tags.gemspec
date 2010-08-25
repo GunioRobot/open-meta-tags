@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{open-meta-tags}
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Intridea"]
-  s.date = %q{2010-08-15}
+  s.date = %q{2010-08-23}
   s.description = %q{something}
   s.email = %q{jonathan@intridea.com}
   s.extra_rdoc_files = [
@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
      "lib/open_meta_tags/controller_helper.rb",
      "lib/open_meta_tags/view_helper.rb",
      "open-meta-tags.gemspec",
-     "open-meta.gemspec",
      "spec/open_meta_tags_spec.rb",
      "spec/spec_helper.rb"
   ]

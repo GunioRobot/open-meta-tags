@@ -1,7 +1,7 @@
 ## Open Meta Tags: Integrate Web page metadata into the Facebook social graph.
 
 * **Homepage**:     [http://intridea.com](http://intridea.com)
-* **Git**:          [http://github.com/intridea/open-meta](http://github.com/intridea/open-meta)
+* **Git**:          [http://github.com/intridea/open-meta](http://github.com/intridea/open-meta-tags)
 * **Author**:       Jonathan Nelson
 * **Contributors**: See Contributors section below
 * **Copyright**:    2010    
